@@ -128,7 +128,13 @@ credits.TextYAlignment = Enum.TextYAlignment.Top
 -- SCRIPT
 
 local function uiparent()
-	return game:GetService("CoreGui")
+    local success, err = pcall(function()
+		return gethui()
+	end)
+	if not success then
+		return speaker.PlayerGui
+	end
+	return err;
 end
 
 local function updatespeed(char, hum)
