@@ -288,17 +288,6 @@ Logo.MouseButton1Click:Connect(function()
 	TweenService:Create(Intro, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {BackgroundTransparency = 1}):Play()
 end)
 
-local success, err = pcall(function()
-	Arceus.Parent = uiparent()
-end)
-
-if not success then
-	Arceus.Parent = game:GetService("Players").LocalPlayer.PlayerGui
-end
-
-local element_height = 50*Menu.AbsoluteSize.Y/210
-local elements = 0
-
 local function uiparent()
 	local success, parent = pcall(function()
 		return gethui()
@@ -310,6 +299,17 @@ local function uiparent()
 
 	return parent
 end
+
+local success, err = pcall(function()
+	Arceus.Parent = uiparent()
+end)
+
+if not success then
+	Arceus.Parent = game:GetService("Players").LocalPlayer.PlayerGui
+end
+
+local element_height = 50*Menu.AbsoluteSize.Y/210
+local elements = 0
 
 local function addSpace()
 	local space = tab:Clone()
