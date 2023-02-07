@@ -89,7 +89,7 @@ Title.Size = UDim2.new(0.85, 0, 0.155, 0)
 Title.Font = Enum.Font.TitilliumWeb
 Title.FontFace = Font.new("rbxasset://fonts/families/TitilliumWeb.json", Enum.FontWeight.Bold)
 Title.RichText = true
-Title.Text = `Arceus X <font color="rgb(255, 75, 75)">|</font> Aimbot`
+Title.Text = `Arceus X <font color="rgb(255, 0, 0)">|</font> Aimbot`
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextScaled = true
 Title.TextSize = 14.000
@@ -139,7 +139,7 @@ UICorner_4.Parent = Enabled
 Check.Name = "Check"
 Check.Parent = Enabled
 Check.AnchorPoint = Vector2.new(0.5, 0.5)
-Check.BackgroundColor3 = Color3.fromRGB(255, 75, 75)
+Check.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 Check.Position = UDim2.new(0.5, 0, 0.5, 0)
 Check.Size = UDim2.new(0.65, 0, 0.65, 0)
 
@@ -210,7 +210,7 @@ Close.Position = UDim2.new(0.8, 0, 0.1, 0)
 Close.Size = UDim2.new(0.15, 0, 0.125, 0)
 Close.Font = Enum.Font.FredokaOne
 Close.Text = "X"
-Close.TextColor3 = Color3.fromRGB(255, 75, 75)
+Close.TextColor3 = Color3.fromRGB(255, 0, 0)
 Close.TextScaled = true
 Close.TextSize = 14.000
 Close.TextWrapped = true
@@ -223,7 +223,7 @@ local TweenService = game:GetService("TweenService")
 Close.MouseButton1Click:Connect(function()
 	Logo.Active = true
 	TweenService:Create(Intro, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {BackgroundTransparency = 0}):Play()
-	
+
 	task.wait(0.3)
 	Logo:TweenSizeAndPosition(
 		UDim2.fromScale(0.75, 0.75),
@@ -232,7 +232,7 @@ Close.MouseButton1Click:Connect(function()
 		Enum.EasingStyle.Quad,
 		0.25, true, nil
 	)
-	
+
 	task.wait(0.3)
 	Main:TweenSize(
 		UDim2.fromScale(0.1, 0.175),
@@ -240,14 +240,14 @@ Close.MouseButton1Click:Connect(function()
 		Enum.EasingStyle.Quad,
 		0.25, true, nil
 	)
-	
+
 	task.wait(0.3)
 	for _, obj in pairs(Main:GetChildren()) do
 		if obj:IsA("GuiObject") and obj ~= Intro then
 			obj.Visible = false
 		end
 	end
-	
+
 	TweenService:Create(Logo, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {ImageTransparency = 0.8}):Play()
 	TweenService:Create(Intro, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {BackgroundTransparency = 1}):Play()
 	TweenService:Create(Main, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {BackgroundTransparency = 0.8}):Play()
@@ -258,7 +258,7 @@ Logo.MouseButton1Click:Connect(function()
 	TweenService:Create(Logo, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
 	TweenService:Create(Intro, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {BackgroundTransparency = 0}):Play()
 	TweenService:Create(Main, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {BackgroundTransparency = 0}):Play()
-	
+
 	task.wait(0.3)
 	Main:TweenSize(
 		UDim2.fromScale(0.3, 0.3),
@@ -266,7 +266,7 @@ Logo.MouseButton1Click:Connect(function()
 		Enum.EasingStyle.Quad,
 		0.25, true, nil
 	)
-	
+
 	task.wait(0.3)
 	Logo:TweenSizeAndPosition(
 		UDim2.fromScale(0.175, 0.175),
@@ -275,13 +275,13 @@ Logo.MouseButton1Click:Connect(function()
 		Enum.EasingStyle.Quad,
 		0.25, true, nil
 	)
-	
+
 	for _, obj in pairs(Main:GetChildren()) do
 		if obj:IsA("GuiObject") and obj ~= Intro then
 			obj.Visible = true
 		end
 	end
-	
+
 	task.wait(0.3)
 	TweenService:Create(Intro, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {BackgroundTransparency = 1}):Play()
 end)
@@ -314,39 +314,39 @@ local function addSpace()
 	space.Parent = Menu
 	space.LayoutOrder = elements
 	space.Visible = true
-	
+
 	elements += 1
 end
 
 local function addToggle(name, funct, enabled, ...)
 	local newTog = Toggle:Clone()
 	local args = {...}
-	
+
 	newTog.MouseButton1Click:Connect(function()
 		enabled = not enabled
 		newTog:WaitForChild("Enabled"):WaitForChild("Check").Visible = enabled
 		funct(enabled, unpack(args))
 	end)
-			
+
 	newTog:WaitForChild("Enabled"):WaitForChild("Check").Visible = enabled
 	newTog:WaitForChild("Name").Text = name
-	
+
 	newTog.Size = UDim2.new(0.95, 0, 0, element_height) -- Y1 = 50 : Y2 = X
 	newTog.Name = name
 	newTog.Parent = Menu
 	newTog.LayoutOrder = elements
 	newTog.Visible = true
-	
+
 	elements += 1
 	addSpace()
-	
+
 	return newTog
 end
 
 local function addButton(name, funct, ...)
 	local newBut = Button:Clone()
 	local args = {...}
-	
+
 	newBut.MouseButton1Click:Connect(function()
 		funct(unpack(args))
 	end)
@@ -357,10 +357,10 @@ local function addButton(name, funct, ...)
 	newBut.Parent = Menu
 	newBut.LayoutOrder = elements
 	newBut.Visible = true
-	
+
 	elements += 1
 	addSpace()
-	
+
 	return newBut
 end
 
