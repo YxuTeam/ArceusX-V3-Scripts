@@ -304,9 +304,11 @@ local success, err = pcall(function()
 	Arceus.Parent = uiparent()
 end)
 
+--[[ For Roblox Studio
 if not success then
 	Arceus.Parent = game:GetService("Players").LocalPlayer.PlayerGui
 end
+]]
 
 local element_height = 50*Menu.AbsoluteSize.Y/210
 local elements = 0
