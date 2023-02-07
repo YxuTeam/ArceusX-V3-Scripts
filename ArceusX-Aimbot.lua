@@ -203,7 +203,6 @@ tab.BackgroundTransparency = 1
 tab.Size = UDim2.new(0.95, 0, 0.025, 0)
 
 Close.Name = "Close"
-Close.Parent = game.StarterGui.Arceus.Main
 Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Close.BackgroundTransparency = 1.000
 Close.BorderSizePixel = 0
@@ -303,11 +302,9 @@ local success, err = pcall(function()
 	Arceus.Parent = uiparent()
 end)
 
---[[ For Roblox Studio
 if not success then
 	Arceus.Parent = game:GetService("Players").LocalPlayer.PlayerGui
 end
-]]
 
 local element_height = 50*Menu.AbsoluteSize.Y/210
 local elements = 0
