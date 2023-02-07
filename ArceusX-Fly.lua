@@ -6,17 +6,13 @@
 		# spdmteam.com
 ]]
 
--- Gui to Lua
--- Version: 3.2
-
 -- Instances:
-
 local Arceus = Instance.new("ScreenGui")
 local Main = Instance.new("Frame")
 local UICorner = Instance.new("UICorner")
 local Intro = Instance.new("Frame")
 local UICorner_2 = Instance.new("UICorner")
-local Logo = Instance.new("ImageLabel")
+local Logo = Instance.new("ImageButton")
 local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
 local Title = Instance.new("TextLabel")
 local Menu = Instance.new("ScrollingFrame")
@@ -36,6 +32,7 @@ local UICorner_6 = Instance.new("UICorner")
 local Name_2 = Instance.new("TextLabel")
 local UIGradient_2 = Instance.new("UIGradient")
 local tab = Instance.new("Frame")
+local Close = Instance.new("TextButton")
 
 --Properties:
 
@@ -78,6 +75,7 @@ Logo.Size = UDim2.new(0.75, 0, 0.75, 0)
 Logo.ZIndex = 2
 Logo.Image = "http://www.roblox.com/asset/?id=9178187770"
 Logo.ScaleType = Enum.ScaleType.Fit
+Logo.Active = false
 
 UIAspectRatioConstraint.Parent = Logo
 
@@ -91,7 +89,8 @@ Title.Position = UDim2.new(0.975, 0, 0.075, 0)
 Title.Size = UDim2.new(0.85, 0, 0.155, 0)
 Title.Font = Enum.Font.TitilliumWeb
 Title.FontFace = Font.new("rbxasset://fonts/families/TitilliumWeb.json", Enum.FontWeight.Bold)
-Title.Text = "Arceus X | Mobile fly"
+Title.RichText = true
+Title.Text = `Arceus X <font color="rgb(255, 75, 75)">|</font> Mobile fly`
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextScaled = true
 Title.TextSize = 14.000
@@ -110,6 +109,7 @@ Menu.BorderSizePixel = 0
 Menu.Position = UDim2.new(0.5, 0, 0.95, 0)
 Menu.Size = UDim2.new(0.95, 0, 0.65, 0)
 Menu.CanvasSize = UDim2.new(0, 0, 0, 0)
+Menu.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
 Menu.ScrollBarThickness = Menu.AbsoluteSize.X/25
 
 UIListLayout.Parent = Menu
@@ -140,7 +140,7 @@ UICorner_4.Parent = Enabled
 Check.Name = "Check"
 Check.Parent = Enabled
 Check.AnchorPoint = Vector2.new(0.5, 0.5)
-Check.BackgroundColor3 = Color3.fromRGB(255, 74, 74)
+Check.BackgroundColor3 = Color3.fromRGB(255, 75, 75)
 Check.Position = UDim2.new(0.5, 0, 0.5, 0)
 Check.Size = UDim2.new(0.65, 0, 0.65, 0)
 
@@ -197,13 +197,96 @@ Name_2.TextYAlignment = Enum.TextYAlignment.Bottom
 UIGradient_2.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(180, 180, 180))}
 UIGradient_2.Parent = Button
 
-tab.Name = "tab"
+tab.Name = "Tab"
 tab.Visible = false
 --tab.Parent = Arceus
 tab.BackgroundTransparency = 1
 tab.Size = UDim2.new(0.95, 0, 0.025, 0)
 
+Close.Name = "Close"
+Close.Parent = game.StarterGui.Arceus.Main
+Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Close.BackgroundTransparency = 1.000
+Close.BorderSizePixel = 0
+Close.Position = UDim2.new(0.8, 0, 0.1, 0)
+Close.Size = UDim2.new(0.15, 0, 0.125, 0)
+Close.Font = Enum.Font.FredokaOne
+Close.Text = "X"
+Close.TextColor3 = Color3.fromRGB(255, 75, 75)
+Close.TextScaled = true
+Close.TextSize = 14.000
+Close.TextWrapped = true
+Close.TextXAlignment = Enum.TextXAlignment.Right
+Close.Parent = Main
+
 -- SCRIPT
+
+local TweenService = game:GetService("TweenService")
+Close.MouseButton1Click:Connect(function()
+	Logo.Active = true
+	TweenService:Create(Intro, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {BackgroundTransparency = 0}):Play()
+	
+	task.wait(0.3)
+	Logo:TweenSizeAndPosition(
+		UDim2.fromScale(0.75, 0.75),
+		UDim2.fromScale(0.5, 0.5),
+		Enum.EasingDirection.Out,
+		Enum.EasingStyle.Quad,
+		0.25, true, nil
+	)
+	
+	task.wait(0.3)
+	Main:TweenSize(
+		UDim2.fromScale(0.1, 0.175),
+		Enum.EasingDirection.Out,
+		Enum.EasingStyle.Quad,
+		0.25, true, nil
+	)
+	
+	task.wait(0.3)
+	for _, obj in pairs(Main:GetChildren()) do
+		if obj:IsA("GuiObject") and obj ~= Intro then
+			obj.Visible = false
+		end
+	end
+	
+	TweenService:Create(Logo, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {ImageTransparency = 0.8}):Play()
+	TweenService:Create(Intro, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {BackgroundTransparency = 1}):Play()
+	TweenService:Create(Main, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {BackgroundTransparency = 0.8}):Play()
+end)
+
+Logo.MouseButton1Click:Connect(function()
+	Logo.Active = false
+	TweenService:Create(Logo, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
+	TweenService:Create(Intro, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {BackgroundTransparency = 0}):Play()
+	TweenService:Create(Main, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {BackgroundTransparency = 0}):Play()
+	
+	task.wait(0.3)
+	Main:TweenSize(
+		UDim2.fromScale(0.3, 0.3),
+		Enum.EasingDirection.Out,
+		Enum.EasingStyle.Quad,
+		0.25, true, nil
+	)
+	
+	task.wait(0.3)
+	Logo:TweenSizeAndPosition(
+		UDim2.fromScale(0.175, 0.175),
+		UDim2.fromScale(0.075, 0.15),
+		Enum.EasingDirection.Out,
+		Enum.EasingStyle.Quad,
+		0.25, true, nil
+	)
+	
+	for _, obj in pairs(Main:GetChildren()) do
+		if obj:IsA("GuiObject") and obj ~= Intro then
+			obj.Visible = true
+		end
+	end
+	
+	task.wait(0.3)
+	TweenService:Create(Intro, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {BackgroundTransparency = 1}):Play()
+end)
 
 local success, err = pcall(function()
 	Arceus.Parent = uiparent()
@@ -213,7 +296,6 @@ if not success then
 	Arceus.Parent = game:GetService("Players").LocalPlayer.PlayerGui
 end
 
-local TweenService = game:GetService("TweenService")
 local element_height = 50*Menu.AbsoluteSize.Y/210
 local elements = 0
 
@@ -242,7 +324,7 @@ local function addToggle(name, funct, enabled, ...)
 	local newTog = Toggle:Clone()
 	local args = {...}
 	
-	newTog.MouseButton1Down:Connect(function()
+	newTog.MouseButton1Click:Connect(function()
 		enabled = not enabled
 		newTog:WaitForChild("Enabled"):WaitForChild("Check").Visible = enabled
 		funct(enabled, unpack(args))
@@ -267,7 +349,7 @@ local function addButton(name, funct, ...)
 	local newBut = Button:Clone()
 	local args = {...}
 	
-	newBut.MouseButton1Down:Connect(function()
+	newBut.MouseButton1Click:Connect(function()
 		funct(unpack(args))
 	end)
 
@@ -484,7 +566,7 @@ Main:TweenPosition(
 	UDim2.fromScale(0.5, 0.5),
 	Enum.EasingDirection.In,
 	Enum.EasingStyle.Quad,
-	1, false, nil
+	1, true, nil
 )
 
 task.wait(1.5)
@@ -493,7 +575,7 @@ Logo:TweenSizeAndPosition(
 	UDim2.fromScale(0.075, 0.15),
 	Enum.EasingDirection.In,
 	Enum.EasingStyle.Quad,
-	1, false, nil
+	1, true, nil
 )
 
 task.wait(1.5)
