@@ -528,7 +528,6 @@ end
 
 local runService = game:GetService("RunService")
 local plrsService = game:GetService("Players")
-local teamService = game:GetService("Teams")
 local enabled = false
 local teamcheck = false
 local aimpart = "Head"
