@@ -33,6 +33,18 @@ local Name_2 = Instance.new("TextLabel")
 local UIGradient_2 = Instance.new("UIGradient")
 local tab = Instance.new("Frame")
 local Close = Instance.new("TextButton")
+local ComboElem = Instance.new("ImageButton")
+local UICorner_7 = Instance.new("UICorner")
+local Name_3 = Instance.new("TextLabel")
+local UIGradient_3 = Instance.new("UIGradient")
+local Img = Instance.new("TextLabel")
+local UIAspectRatioConstraint_4 = Instance.new("UIAspectRatioConstraint")
+local ComboBox = Instance.new("ImageButton")
+local UICorner_8 = Instance.new("UICorner")
+local Name_4 = Instance.new("TextLabel")
+local UIGradient_4 = Instance.new("UIGradient")
+local Img_2 = Instance.new("TextLabel")
+local UIAspectRatioConstraint_5 = Instance.new("UIAspectRatioConstraint")
 
 --Properties:
 
@@ -68,7 +80,7 @@ UICorner_2.Parent = Intro
 Logo.Parent = Intro
 Logo.AnchorPoint = Vector2.new(0.5, 0.5)
 Logo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Logo.BackgroundTransparency = 1.000
+Logo.BackgroundTransparency = 1
 Logo.BorderSizePixel = 0
 Logo.Position = UDim2.new(0.5, 0, 0.5, 0)
 Logo.Size = UDim2.new(0.75, 0, 0.75, 0)
@@ -83,17 +95,17 @@ Title.Name = "Title"
 Title.Parent = Main
 Title.AnchorPoint = Vector2.new(1, 0)
 Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Title.BackgroundTransparency = 1.000
+Title.BackgroundTransparency = 1
 Title.BorderSizePixel = 0
 Title.Position = UDim2.new(0.975, 0, 0.075, 0)
 Title.Size = UDim2.new(0.85, 0, 0.155, 0)
 Title.Font = Enum.Font.TitilliumWeb
 Title.FontFace = Font.new("rbxasset://fonts/families/TitilliumWeb.json", Enum.FontWeight.Bold)
 Title.RichText = true
-Title.Text = `Arceus X <font color="rgb(255, 0, 0)">|</font> Mobile fly`
+Title.Text = `Arceus X <font color="rgb(255, 0, 0)">|</font> Aimbot`
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextScaled = true
-Title.TextSize = 14.000
+Title.TextSize = 14
 Title.TextWrapped = true
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.TextYAlignment = Enum.TextYAlignment.Center
@@ -103,7 +115,7 @@ Menu.Parent = Main
 Menu.Active = true
 Menu.AnchorPoint = Vector2.new(0.5, 1)
 Menu.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Menu.BackgroundTransparency = 1.000
+Menu.BackgroundTransparency = 1
 Menu.AutomaticCanvasSize = Enum.AutomaticSize.Y
 Menu.BorderSizePixel = 0
 Menu.Position = UDim2.new(0.5, 0, 0.95, 0)
@@ -153,7 +165,7 @@ Name.Name = "Name"
 Name.Parent = Toggle
 Name.AnchorPoint = Vector2.new(0, 0.5)
 Name.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Name.BackgroundTransparency = 1.000
+Name.BackgroundTransparency = 1
 Name.BorderSizePixel = 0
 Name.Position = UDim2.new(0.057, 0, 0.5, 0)
 Name.Size = UDim2.new(0.75, 0, 0.8, 0)
@@ -161,7 +173,7 @@ Name.Font = Enum.Font.TitilliumWeb
 Name.Text = "Script"
 Name.TextColor3 = Color3.fromRGB(255, 255, 255)
 Name.TextScaled = true
-Name.TextSize = 14.000
+Name.TextSize = 14
 Name.TextWrapped = true
 Name.TextXAlignment = Enum.TextXAlignment.Left
 Name.TextYAlignment = Enum.TextYAlignment.Bottom
@@ -181,7 +193,7 @@ Name_2.Name = "Name"
 Name_2.Parent = Button
 Name_2.AnchorPoint = Vector2.new(0, 0.5)
 Name_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Name_2.BackgroundTransparency = 1.000
+Name_2.BackgroundTransparency = 1
 Name_2.BorderSizePixel = 0
 Name_2.Position = UDim2.new(0.05, 0, 0.5, 0)
 Name_2.Size = UDim2.new(0.95, 0, 0.82, 0)
@@ -189,7 +201,7 @@ Name_2.Font = Enum.Font.TitilliumWeb
 Name_2.Text = "Enabled"
 Name_2.TextColor3 = Color3.fromRGB(255, 255, 255)
 Name_2.TextScaled = true
-Name_2.TextSize = 14.000
+Name_2.TextSize = 14
 Name_2.TextWrapped = true
 Name_2.TextXAlignment = Enum.TextXAlignment.Left
 Name_2.TextYAlignment = Enum.TextYAlignment.Bottom
@@ -205,7 +217,7 @@ tab.Size = UDim2.new(0.95, 0, 0.025, 0)
 
 Close.Name = "Close"
 Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Close.BackgroundTransparency = 1.000
+Close.BackgroundTransparency = 1
 Close.BorderSizePixel = 0
 Close.Position = UDim2.new(0.8, 0, 0.1, 0)
 Close.Size = UDim2.new(0.15, 0, 0.125, 0)
@@ -213,10 +225,101 @@ Close.Font = Enum.Font.FredokaOne
 Close.Text = "X"
 Close.TextColor3 = Color3.fromRGB(255, 0, 0)
 Close.TextScaled = true
-Close.TextSize = 14.000
+Close.TextSize = 14
 Close.TextWrapped = true
 Close.TextXAlignment = Enum.TextXAlignment.Right
 Close.Parent = Main
+
+ComboElem.Name = "ComboElem"
+ComboElem.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
+ComboElem.Size = UDim2.new(0.95, 0, 0, 50)
+
+UICorner_7.CornerRadius = UDim.new(0.25, 0)
+UICorner_7.Parent = ComboElem
+
+Name_3.Name = "Name"
+Name_3.Parent = ComboElem
+Name_3.AnchorPoint = Vector2.new(0, 0.5)
+Name_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Name_3.BackgroundTransparency = 1
+Name_3.BorderSizePixel = 0
+Name_3.Position = UDim2.new(0.05, 0, 0.5, 0)
+Name_3.Size = UDim2.new(0.75, 0, 0.8, 0)
+Name_3.Font = Enum.Font.TitilliumWeb
+Name_3.Text = "Enabled"
+Name_3.TextColor3 = Color3.fromRGB(255, 0, 0)
+Name_3.TextScaled = true
+Name_3.TextSize = 14
+Name_3.TextWrapped = true
+Name_3.TextXAlignment = Enum.TextXAlignment.Left
+Name_3.TextYAlignment = Enum.TextYAlignment.Bottom
+
+UIGradient_3.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(180, 180, 180))}
+UIGradient_3.Rotation = 180
+UIGradient_3.Parent = ComboElem
+
+Img.Name = "Img"
+Img.Parent = ComboElem
+Img.AnchorPoint = Vector2.new(1, 0.5)
+Img.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Img.BackgroundTransparency = 1
+Img.BorderSizePixel = 0
+Img.Position = UDim2.new(0.975, 0, 0.5, 0)
+Img.Rotation = 90
+Img.Size = UDim2.new(0.75, 0, 0.75, 0)
+Img.Font = Enum.Font.FredokaOne
+Img.Text = "^"
+Img.TextColor3 = Color3.fromRGB(255, 255, 255)
+Img.TextScaled = true
+Img.TextSize = 14
+Img.TextWrapped = true
+
+UIAspectRatioConstraint_4.Parent = Img
+
+ComboBox.Name = "ComboBox"
+ComboBox.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
+ComboBox.Size = UDim2.new(0.95, 0, 0, 50)
+
+UICorner_8.CornerRadius = UDim.new(0.25, 0)
+UICorner_8.Parent = ComboBox
+
+Name_4.Name = "Name"
+Name_4.Parent = ComboBox
+Name_4.AnchorPoint = Vector2.new(0, 0.5)
+Name_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Name_4.BackgroundTransparency = 1.000
+Name_4.BorderSizePixel = 0
+Name_4.Position = UDim2.new(0.05, 0, 0.5, 0)
+Name_4.Size = UDim2.new(0.75, 0, 0.8, 0)
+Name_4.Font = Enum.Font.TitilliumWeb
+Name_4.Text = "Enabled"
+Name_4.TextColor3 = Color3.fromRGB(255, 255, 255)
+Name_4.TextScaled = true
+Name_4.TextSize = 14
+Name_4.TextWrapped = true
+Name_4.TextXAlignment = Enum.TextXAlignment.Left
+Name_4.TextYAlignment = Enum.TextYAlignment.Bottom
+
+UIGradient_4.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(180, 180, 180))}
+UIGradient_4.Parent = ComboBox
+
+Img_2.Name = "Img"
+Img_2.Parent = ComboBox
+Img_2.AnchorPoint = Vector2.new(1, 0.5)
+Img_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Img_2.BackgroundTransparency = 1
+Img_2.BorderSizePixel = 0
+Img_2.Rotation = 180
+Img_2.Position = UDim2.new(0.975, 0, 0.5, 0)
+Img_2.Size = UDim2.new(0.75, 0, 0.75, 0)
+Img_2.Font = Enum.Font.FredokaOne
+Img_2.Text = "^"
+Img_2.TextColor3 = Color3.fromRGB(255, 0, 0)
+Img_2.TextScaled = true
+Img_2.TextSize = 14
+Img_2.TextWrapped = true
+
+UIAspectRatioConstraint_5.Parent = Img_2
 
 -- SCRIPT
 
@@ -310,9 +413,9 @@ end
 local element_height = 50*Menu.AbsoluteSize.Y/210
 local elements = 0
 
-local function addSpace()
+local function addSpace(parent)
 	local space = tab:Clone()
-	space.Parent = Menu
+	space.Parent = parent
 	space.LayoutOrder = elements
 	space.Visible = true
 
@@ -339,7 +442,7 @@ local function addToggle(name, funct, enabled, ...)
 	newTog.Visible = true
 
 	elements += 1
-	addSpace()
+	addSpace(Menu)
 
 	return newTog
 end
@@ -360,9 +463,64 @@ local function addButton(name, funct, ...)
 	newBut.Visible = true
 
 	elements += 1
-	addSpace()
+	addSpace(Menu)
 
 	return newBut
+end
+
+local function addComboBox(options, funct, ...) -- ADD CUSTOM ELEMENT INSTEAD
+	local newCombo = ComboBox:Clone()
+	local enabled = false
+	local elems = {}
+	local args = {...}
+
+	local function setBoxState()
+		newCombo:WaitForChild("Img").Rotation = enabled and 0 or 180
+		for _, elem in ipairs(elems) do
+			elem.Visible = enabled
+		end
+	end
+
+	newCombo.MouseButton1Click:Connect(function()
+		enabled = not enabled
+		setBoxState()
+	end)
+
+	newCombo:WaitForChild("Name").Text = #options > 0 and options[1] or ""
+	newCombo.Size = UDim2.new(0.95, 0, 0, element_height)
+	newCombo.Name = #options > 0 and options[1] or ""
+	newCombo.Parent = Menu
+	newCombo.LayoutOrder = elements
+	newCombo.Parent = Menu
+	newCombo.Visible = true
+
+	elements += 1
+	addSpace(Menu)
+
+	for _, name in ipairs(options) do
+		local newElem = ComboElem:Clone()
+		table.insert(elems, newElem)
+
+		newElem.MouseButton1Click:Connect(function()
+			newCombo:WaitForChild("Name").Text = name
+			enabled = false
+			setBoxState()
+
+			funct(name, unpack(args))
+		end)
+
+		newElem:WaitForChild("Name").Text = name
+		newElem.Size = UDim2.new(0.95, 0, 0, element_height)
+		newElem.Name = name
+		newElem.Parent = Menu
+		newElem.LayoutOrder = elements
+		newElem.Visible = false
+
+		elements += 1
+		addSpace(Menu)
+	end
+
+	return newCombo
 end
 
 -- Actual Script
