@@ -537,27 +537,13 @@ function lookAt(target, eye)
 	workspace.CurrentCamera.CFrame = CFrame.new(target, eye)
 end
 
-function getEnemiesFromTeams(currentTeam)
-	local enemies = {}
-	for _, team in ipairs(teamService:GetTeams()) do
-		if team ~= currentTeam then
-			for _, enemy in ipairs(team:GetPlayers()) do
-				table.insert(enemies, enemy)
-			end
-		end
-	end
-	
-	return enemies
-end
-
 function getClosestPlayerToCursor(trg_part)
 	local nearest = nil
 	local last = math.huge
-	local players = teamcheck and getEnemiesFromTeams(plrsService.LocalPlayer.Team) or plrsService:GetPlayers()
-	
-	for i, v in ipairs(players) do
+
+	for i, v in ipairs(plrsService:GetPlayers()) do
 		if v ~= plrsService.LocalPlayer and plrsService.LocalPlayer.Character and plrsService.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid") and plrsService.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid").Health > 0
-			and v.Character and v.Character:FindFirstChildWhichIsA("Humanoid") and v.Character:FindFirstChildWhichIsA("Humanoid").Health > 0 
+			and v.Character and v.Character:FindFirstChildWhichIsA("Humanoid") and v.Character:FindFirstChildWhichIsA("Humanoid").Health > 0 and (teamcheck and v.Team ~= plrsService.LocalPlayer.Team or true)
 		then
 			local aimobj = v.Character:FindFirstChild(trg_part) or v.Character:FindFirstChild("UpperTorso")
 			if aimobj then
