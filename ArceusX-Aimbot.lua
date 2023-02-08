@@ -542,18 +542,25 @@ function getClosestPlayerToCursor(trg_part)
 
 	for i, v in ipairs(plrsService:GetPlayers()) do
 		if v ~= plrsService.LocalPlayer and plrsService.LocalPlayer.Character and plrsService.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid") and plrsService.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid").Health > 0
-			and v.Character and v.Character:FindFirstChildWhichIsA("Humanoid") and v.Character:FindFirstChildWhichIsA("Humanoid").Health > 0 and (teamcheck and v.Team.Name ~= plrsService.LocalPlayer.Team.Name or true)
+			and v.Character and v.Character:FindFirstChildWhichIsA("Humanoid") and v.Character:FindFirstChildWhichIsA("Humanoid").Health > 0
 		then
-			local aimobj = v.Character:FindFirstChild(trg_part) or v.Character:FindFirstChild("UpperTorso")
-			if aimobj then
-				if plrsService.LocalPlayer.Character:FindFirstChild("Head") then
-					local ePos, vissss = workspace.CurrentCamera:WorldToViewportPoint(aimobj.Position)
-					local AccPos = Vector2.new(ePos.x, ePos.y)
-					local mousePos = Vector2.new(workspace.CurrentCamera.ViewportSize.x / 2, workspace.CurrentCamera.ViewportSize.y / 2)
-					local distance = (AccPos - mousePos).magnitude
-					if distance < last and vissss and distance < 400 then
-						last = distance
-						nearest = v
+			local allowed = not teamcheck
+			if teamcheck and v.Team ~= plrsService.LocalPlayer.Team then
+				allowed = true
+			end
+			
+			if allowed then
+				local aimobj = v.Character:FindFirstChild(trg_part) or v.Character:FindFirstChild("UpperTorso")
+				if aimobj then
+					if plrsService.LocalPlayer.Character:FindFirstChild("Head") then
+						local ePos, vissss = workspace.CurrentCamera:WorldToViewportPoint(aimobj.Position)
+						local AccPos = Vector2.new(ePos.x, ePos.y)
+						local mousePos = Vector2.new(workspace.CurrentCamera.ViewportSize.x / 2, workspace.CurrentCamera.ViewportSize.y / 2)
+						local distance = (AccPos - mousePos).magnitude
+						if distance < last and vissss and distance < 400 then
+							last = distance
+							nearest = v
+						end
 					end
 				end
 			end
