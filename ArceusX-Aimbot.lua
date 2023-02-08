@@ -558,7 +558,6 @@ function getClosestPlayerToCursor(trg_part)
 			and v.Character and v.Character:FindFirstChildWhichIsA("Humanoid") and v.Character:FindFirstChildWhichIsA("Humanoid").Health > 0 
 		then
 			local aimobj = v.Character:FindFirstChild(trg_part) or v.Character:FindFirstChild("UpperTorso")
-			print("cacca")
 			if aimobj then
 				if plrsService.LocalPlayer.Character:FindFirstChild("Head") then
 					local ePos, vissss = workspace.CurrentCamera:WorldToViewportPoint(aimobj.Position)
