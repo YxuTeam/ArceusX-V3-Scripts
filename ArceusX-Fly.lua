@@ -63,7 +63,7 @@ Main.Draggable = true
 Main.AnchorPoint = Vector2.new(0.5, 0.5)
 Main.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 Main.BorderSizePixel = 0
-Main.Position = UDim2.new(0.5, 0, -0.15, 0) --UDim2.new(0.5, 0, 0.5, 0)
+Main.Position = UDim2.new(0.5, 0, -0.2, 0) --UDim2.new(0.5, 0, 0.5, 0)
 Main.Size = UDim2.new(0.3, 0, 0.3, 0)
 
 UICorner.CornerRadius = UDim.new(0.1, 0)
@@ -169,7 +169,7 @@ Name.AnchorPoint = Vector2.new(0, 0.5)
 Name.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Name.BackgroundTransparency = 1
 Name.BorderSizePixel = 0
-Name.Position = UDim2.new(0.057, 0, 0.5, 0)
+Name.Position = UDim2.new(0.05, 0, 0.5, 0)
 Name.Size = UDim2.new(0.75, 0, 0.8, 0)
 Name.Font = Enum.Font.TitilliumWeb
 Name.Text = "Script"
@@ -470,7 +470,7 @@ local function addButton(name, funct, ...)
 	return newBut
 end
 
-local function addComboBox(options, funct, ...) -- ADD CUSTOM ELEMENT INSTEAD
+local function addComboBox(text, options, funct, ...) -- ADD CUSTOM ELEMENT INSTEAD
 	local newCombo = ComboBox:Clone()
 	local enabled = false
 	local elems = {}
@@ -488,7 +488,7 @@ local function addComboBox(options, funct, ...) -- ADD CUSTOM ELEMENT INSTEAD
 		setBoxState()
 	end)
 
-	newCombo:WaitForChild("Name").Text = #options > 0 and options[1] or ""
+	newCombo:WaitForChild("Name").Text = text .. ": " .. (#options > 0 and options[1] or "")
 	newCombo.Size = UDim2.new(0.95, 0, 0, element_height)
 	newCombo.Name = #options > 0 and options[1] or ""
 	newCombo.Parent = Menu
@@ -504,7 +504,7 @@ local function addComboBox(options, funct, ...) -- ADD CUSTOM ELEMENT INSTEAD
 		table.insert(elems, newElem)
 
 		newElem.MouseButton1Click:Connect(function()
-			newCombo:WaitForChild("Name").Text = name
+			newCombo:WaitForChild("Name").Text = text .. ": " .. name
 			enabled = false
 			setBoxState()
 
