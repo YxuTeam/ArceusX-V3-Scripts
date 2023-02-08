@@ -6,7 +6,7 @@
 		# spdmteam.com
 ]]
 
-local Script_Title = "Mobile Fly"
+local Script_Title = "Mobile fly"
 
 -- Instances:
 local Arceus = Instance.new("ScreenGui")
