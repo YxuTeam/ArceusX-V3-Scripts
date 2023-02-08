@@ -542,7 +542,7 @@ function getClosestPlayerToCursor(trg_part)
 
 	for i, v in ipairs(plrsService:GetPlayers()) do
 		if v ~= plrsService.LocalPlayer and plrsService.LocalPlayer.Character and plrsService.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid") and plrsService.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid").Health > 0
-			and v.Character and v.Character:FindFirstChildWhichIsA("Humanoid") and v.Character:FindFirstChildWhichIsA("Humanoid").Health > 0 and (teamcheck and v.Team ~= plrsService.LocalPlayer.Team or true)
+			and v.Character and v.Character:FindFirstChildWhichIsA("Humanoid") and v.Character:FindFirstChildWhichIsA("Humanoid").Health > 0 and (teamcheck and v.Team.Name ~= plrsService.LocalPlayer.Team.Name or true)
 		then
 			local aimobj = v.Character:FindFirstChild(trg_part) or v.Character:FindFirstChild("UpperTorso")
 			if aimobj then
