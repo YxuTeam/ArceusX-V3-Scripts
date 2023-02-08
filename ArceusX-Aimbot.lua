@@ -367,18 +367,36 @@ end
 -- Actual Script
 
 local runService = game:GetService("RunService")
+local plrsService = game:GetService("Players")
+local teamService = game:GetService("Teams")
 local enabled = false
+local teamcheck = false
 
 function lookAt(target, eye)
 	workspace.CurrentCamera.CFrame = CFrame.new(target, eye)
 end
 
+function getEnemiesFromTeams(currentTeam)
+	local enemies = {}
+	for _, team in ipairs(teamService:GetTeams()) do
+		if team ~= currentTeam then
+			for _, enemy in ipairs(team:GetPlayers()) do
+				table.insert(enemies, enemy)
+			end
+		end
+	end
+	
+	return enemies
+end
+
 function getClosestPlayerToCursor(trg_part)
 	local nearest = nil
 	local last = math.huge
-	for i,v in pairs(game.Players:GetPlayers()) do
-		if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character and v.Character and v.Character:FindFirstChild(trg_part) then
-			if game.Players.LocalPlayer.Character:FindFirstChild(trg_part) then
+	local players = teamcheck and getEnemiesFromTeams(plrsService.LocalPlayer.Team) or plrsService:GetPlayers()
+	
+	for i, v in ipairs(players) do
+		if v ~= plrsService.LocalPlayer and plrsService.LocalPlayer.Character and v.Character and v.Character:FindFirstChild(trg_part) then
+			if plrsService.LocalPlayer.Character:FindFirstChild(trg_part) then
 				local ePos, vissss = workspace.CurrentCamera:WorldToViewportPoint(v.Character[trg_part].Position)
 				local AccPos = Vector2.new(ePos.x, ePos.y)
 				local mousePos = Vector2.new(workspace.CurrentCamera.ViewportSize.x / 2, workspace.CurrentCamera.ViewportSize.y / 2)
@@ -397,6 +415,11 @@ local toggleBtn
 toggleBtn = addToggle("Toggle aimbot", function(state)
 	enabled = state
 end, false)
+
+local toggleTeamCheckBtn
+toggleTeamCheckBtn = addToggle("Team check", function(state)
+	teamcheck = state
+end)
 
 runService.RenderStepped:Connect(function()
 	local closest = getClosestPlayerToCursor("Head")
