@@ -6,7 +6,7 @@
 		# spdmteam.com
 ]]
 
-local Script_Title = "Mobile fly"
+local Script_Title = `Arceus X <font color="rgb(255, 0, 0)">|</font> Mobile fly`
 
 -- Instances:
 local Arceus = Instance.new("ScreenGui")
@@ -104,7 +104,7 @@ Title.Size = UDim2.new(0.85, 0, 0.155, 0)
 Title.Font = Enum.Font.TitilliumWeb
 Title.FontFace = Font.new("rbxasset://fonts/families/TitilliumWeb.json", Enum.FontWeight.Bold)
 Title.RichText = true
-Title.Text = `Arceus X <font color="rgb(255, 0, 0)">|</font> ` + Script_Title
+Title.Text = Script_Title
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextScaled = true
 Title.TextSize = 14
