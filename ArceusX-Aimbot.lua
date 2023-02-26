@@ -414,13 +414,14 @@ end
 local element_height = 50*Menu.AbsoluteSize.Y/210
 local elements = 0
 
-local function addSpace(parent)
+local function addSpace(parent, visibility)
 	local space = tab:Clone()
 	space.Parent = parent
 	space.LayoutOrder = elements
-	space.Visible = true
-
+	space.Visible = visibility
 	elements += 1
+	
+	return space
 end
 
 local function addToggle(name, funct, enabled, ...)
@@ -443,7 +444,7 @@ local function addToggle(name, funct, enabled, ...)
 	newTog.Visible = true
 
 	elements += 1
-	addSpace(Menu)
+	addSpace(Menu, newTog.Visible)
 
 	return newTog
 end
@@ -464,7 +465,7 @@ local function addButton(name, funct, ...)
 	newBut.Visible = true
 
 	elements += 1
-	addSpace(Menu)
+	addSpace(Menu, newBut.Visible)
 
 	return newBut
 end
@@ -494,9 +495,8 @@ local function addComboBox(text, options, funct, ...) -- ADD CUSTOM ELEMENT INST
 	newCombo.LayoutOrder = elements
 	newCombo.Parent = Menu
 	newCombo.Visible = true
-
 	elements += 1
-	addSpace(Menu)
+	addSpace(Menu, newCombo.Visible)
 
 	for _, name in ipairs(options) do
 		local newElem = ComboElem:Clone()
@@ -518,7 +518,7 @@ local function addComboBox(text, options, funct, ...) -- ADD CUSTOM ELEMENT INST
 		newElem.Visible = false
 
 		elements += 1
-		addSpace(Menu)
+		table.insert(elems, addSpace(Menu, newElem.Visible))
 	end
 
 	return newCombo
@@ -528,68 +528,124 @@ end
 
 local runService = game:GetService("RunService")
 local plrsService = game:GetService("Players")
+
 local enabled = false
 local teamcheck = false
+local wallcheck = false
+local cursorcloser = true
 local aimpart = "Head"
 
 function lookAt(target, eye)
 	workspace.CurrentCamera.CFrame = CFrame.new(target, eye)
 end
 
-function getClosestPlayerToCursor(trg_part)
-	local nearest = nil
-	local last = math.huge
+function getTarget(trg_part)
+	local target = nil
+	local last_cursor = math.huge
+	local last_root = math.huge
+
+	local camera = workspace.CurrentCamera
+	local localPlayer = plrsService.LocalPlayer
+	local screenCenter = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
 
 	for i, v in ipairs(plrsService:GetPlayers()) do
-		if v ~= plrsService.LocalPlayer and plrsService.LocalPlayer.Character and plrsService.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid") and plrsService.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid").Health > 0
-			and v.Character and v.Character:FindFirstChildWhichIsA("Humanoid") and v.Character:FindFirstChildWhichIsA("Humanoid").Health > 0
+		if v ~= localPlayer and localPlayer.Character and localPlayer.Character:FindFirstChildWhichIsA("Humanoid") 
+			and localPlayer.Character:FindFirstChildWhichIsA("Humanoid").Health > 0
+			and v.Character and v.Character:FindFirstChildWhichIsA("Humanoid") 
+			and v.Character:FindFirstChildWhichIsA("Humanoid").Health > 0
 		then
-			local allowed = not teamcheck
+			local allowed = not teamcheck			
 			if teamcheck and v.Team ~= plrsService.LocalPlayer.Team then
 				allowed = true
 			end
-			
+
 			if allowed then
-				local aimobj = v.Character:FindFirstChild(trg_part) or v.Character:FindFirstChild("UpperTorso")
+				allowed = not wallcheck
+				local aimobj = v.Character:FindFirstChild(trg_part) or v.Character:FindFirstChild("UpperTorso")	
+
 				if aimobj then
-					if plrsService.LocalPlayer.Character:FindFirstChild("Head") then
-						local ePos, vissss = workspace.CurrentCamera:WorldToViewportPoint(aimobj.Position)
-						local AccPos = Vector2.new(ePos.x, ePos.y)
-						local mousePos = Vector2.new(workspace.CurrentCamera.ViewportSize.x / 2, workspace.CurrentCamera.ViewportSize.y / 2)
-						local distance = (AccPos - mousePos).magnitude
-						if distance < last and vissss and distance < 400 then
-							last = distance
-							nearest = v
+					local ePos, vis = camera:WorldToViewportPoint(aimobj.Position)
+					if vis then
+						local rootPart = localPlayer.Character:FindFirstChild("HumanoidRootPart")
+						if wallcheck and rootPart then
+							--local originUnit = camera:ViewportPointToRay(screenCenter.X, screenCenter.Y, 0)
+							local params = RaycastParams.new()
+							params.FilterType = Enum.RaycastFilterType.Blacklist
+							params.FilterDescendantsInstances = {localPlayer.Character}
+							
+							local raycast = workspace:Raycast(rootPart.CFrame.p, (aimobj.Position - rootPart.CFrame.p).Unit * 5000, params)
+							if raycast and raycast.Instance then
+								local model = raycast.Instance:FindFirstAncestorOfClass("Model")
+								if model == v.Character then
+									allowed = true
+								end
+							end
+						end
+
+						if allowed then
+							if cursorcloser then
+								local AccPos = Vector2.new(screenCenter.X, screenCenter.Y)
+								local distance = (AccPos - screenCenter).magnitude
+
+								if distance < last_cursor and distance < 400 then
+									last_cursor = distance
+									target = v
+								end
+							elseif rootPart then
+								local targetRootPart = v.Character:FindFirstChild("HumanoidRootPart")
+								if targetRootPart then
+									local distance = (targetRootPart.CFrame.p - rootPart.CFrame.p).magnitude
+									
+									if distance < last_root then
+										last_root = distance
+										target = v
+									end
+								end
+							end
 						end
 					end
 				end
 			end
 		end
 	end
-	return nearest
+	return target
 end
 
 local toggleBtn
 toggleBtn = addToggle("Toggle aimbot", function(state)
 	enabled = state
-end, false)
+end, enabled)
+
+local toggleWallCheckBtn
+toggleWallCheckBtn = addToggle("Wall check", function(state)
+	wallcheck = state
+end, wallcheck)
 
 local toggleTeamCheckBtn
 toggleTeamCheckBtn = addToggle("Team check", function(state)
 	teamcheck = state
-end)
+end, teamcheck)
 
 local aimPartCombo
 aimPartCombo = addComboBox("Aim part", {"Head", "Torso"}, function(selection)
 	aimpart = selection
 end)
 
+local closerToCombo
+closerToCombo = addComboBox("Aim closer to", {"Cursor", "Position"}, function(selection)
+	cursorcloser = selection == "Cursor"
+end)
+
 runService.RenderStepped:Connect(function()
-	local closest = getClosestPlayerToCursor(aimpart)
-	if enabled and closest then
-		local aimobj = closest.Character:FindFirstChild(aimpart) or closest.Character:FindFirstChild("UpperTorso") -- If not found then should be R15 Torso
-		if aimobj then
-			lookAt(workspace.CurrentCamera.CFrame.p, aimobj.Position)
+	if enabled then
+		local aimprt = aimpart
+		local target = getTarget(aimprt)
+
+		if target then
+			local aimobj = target.Character:FindFirstChild(aimprt) or target.Character:FindFirstChild("UpperTorso") -- If not found then should be R15 Torso
+			if aimobj then
+				lookAt(workspace.CurrentCamera.CFrame.p, aimobj.Position)
+			end
 		end
 	end
 end)
